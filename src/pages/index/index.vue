@@ -3,10 +3,14 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view>
 			<text class="title">{{title}}</text>
-      <button class="m-test" v-on:click="store.set('token', '114514')">Store set Test</button>
-      <button class="m-test" v-on:click="store.remove('token' )">Store remove Test</button>
-      <button class="m-test" v-on:click="store.clear()">Store clear Test</button>
-      <button class="m-test" v-on:click="httpx.get(userUrls)">get Test</button>
+      <button class="m-test" v-on:click="setStore('token', '114514' + 1)">Store set Test</button>
+      <button class="m-test" v-on:click="rmStore('token' )">Store remove Test</button>
+      <button class="m-test" v-on:click="clearStore()">Store clear Test</button>
+      <button class="m-test" v-on:click="getRqu(baseUrl)">
+        get Test
+        <text class="cuIcon-vipcard cuIcon-vipcard"></text>
+      </button>
+      <button class="m-test" @click="goTo('/pages/admin/commodity')" >TO SHOPPING</button>
 		</view>
 	</view>
 </template>
@@ -18,15 +22,52 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello',
-        httpx, store, base, userUrls
+        baseUrl: base,
+        userUrls: userUrls,
+				title: 'Hello'
 			}
 		},
 		onLoad() {
 		},
 		methods: {
-
+      getRqu: function (url, data) {
+        httpx.get(url, data)
+      },
+      postRqu: function (url, data) {
+        httpx.post(url, data)
+      },
+      putRqu: function (url, data) {
+        httpx.put(url, data)
+      },
+      delRqu: function (url, data) {
+        httpx.del(url, data)
+      },
+      setStore: function (k, v){
+        store.set(k, v)
+      },
+      getStore: function (k){
+        store.get(k)
+      },
+      rmStore: function (k){
+        store.remove(k)
+      },
+      clearStore:function (){
+        store.clear()
+      },
+      goTo: function (url){
+        uni.navigateTo({
+          url:url,
+          success: function(){
+            console.log('Welcome to ' + url)
+          }
+        })
+      }
 		}
+    /*
+    * methods: {
+    * httpx, store, base, userUrls
+    * }
+    * */
 	}
 </script>
 

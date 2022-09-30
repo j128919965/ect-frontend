@@ -5,6 +5,10 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/admin/commodity",
+			"style": {}
 		}
 	],
 	"globalStyle": {
