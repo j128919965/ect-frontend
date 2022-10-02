@@ -2,64 +2,31 @@
   <view class="content">
     <image class="logo" src="/static/logo.png"></image>
     <view>
-      <text class="title">{{title}}</text>
-      <button class="m-test" v-on:click="setStore('token', '114514' + 1)">Store set Test</button>
-      <button class="m-test" v-on:click="rmStore('token' )">Store remove Test</button>
-      <button class="m-test" v-on:click="clearStore()">Store clear Test</button>
-      <button class="m-test" v-on:click="getRqu(baseUrl)">
-        get Test
-        <text class="cuIcon-vipcard cuIcon-vipcard"></text>
-      </button>
+      <text class="title">{{ title }}</text>
       <button class="m-test" @click="route('/pages/admin/commodity')">TO SHOPPING</button>
+      <button class="m-test" v-if="isLogin">只有在登录了会显示</button>
+      <button class="m-test" v-if="isTuanOwnerOrTuanAdmin">只有没有团长权限会显示</button>
     </view>
   </view>
 </template>
 
 <script>
-import httpx from "@/utils/http/httpx";
-import store from "@/utils/store/store";
-import { base, userUrls } from "@/utils/http/urls"
+import state from "../../utils/state/state";
+
 export default {
+  computed: {
+    isLogin: function () {
+      return state.state.isLogin
+    },
+    isTuanOwnerOrTuanAdmin() {
+      return !state.getters.isTuanOwnerOrTuanAdmin()
+    }
+  },
   data() {
     return {
-      baseUrl: base,
-      userUrls: userUrls,
       title: 'Hello'
     }
-  },
-  onLoad() {
-  },
-  methods: {
-    getRqu: function (url, data) {
-      httpx.get(url, data)
-    },
-    postRqu: function (url, data) {
-      httpx.post(url, data)
-    },
-    putRqu: function (url, data) {
-      httpx.put(url, data)
-    },
-    delRqu: function (url, data) {
-      httpx.del(url, data)
-    },
-    setStore: function (k, v) {
-      store.set(k, v)
-    },
-    getStore: function (k) {
-      store.get(k)
-    },
-    rmStore: function (k) {
-      store.remove(k)
-    },
-    clearStore: function () {
-      store.clear()
-    }
   }
-  /*
-  * methods: {
-  * httpx, store, base, userUrls
-  * }
-  * */
 }
 </script>
 

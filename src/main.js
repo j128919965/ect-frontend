@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App'
 
+import state from "./utils/state/state";
+
 Vue.prototype.route = function (url) {
   uni.navigateTo({
     url: url,
@@ -10,13 +12,14 @@ Vue.prototype.route = function (url) {
   })
 }
 
-
 Vue.config.productionTip = false
+
 
 App.mpType = 'app'
 
 const app = new Vue({
-  ...App
+  ...App,
+  state
 })
 
 app.$mount()

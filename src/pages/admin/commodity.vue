@@ -8,8 +8,8 @@
           Tab-{{item.name}}
         </view>
       </scroll-view>
-      <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:100vh"
-        :scroll-into-view="'main-'+mainCur" @scroll="VerticalMain">
+      <scroll-view class="VerticalMain" scroll-y scroll-with-animation="true" style="height:100vh"
+                   :scroll-into-view="'main-'+mainCur" @scroll="VerticalMain">
         <view class="padding-top padding-lr" v-for="(item,index) in types" :key="index" :id="'main-'+index">
           <view class="cu-bar solid-bottom bg-white">
             <view class="action">

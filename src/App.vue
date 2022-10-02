@@ -1,7 +1,10 @@
 <script>
+import loginLogic from "./logic/loginLogic";
+
 export default {
 	onLaunch: function () {
 		console.log('App Launch')
+    loginLogic.launchCheck()
 	},
 	onShow: function () {
 		console.log('App Show')
