@@ -15,6 +15,8 @@
             <view class="action">
               <text class="cuIcon-title text-green"></text> Tab-{{item.name}}
             </view>
+            <view>content
+            </view>
           </view>
           <view class="cu-list menu-avatar">
           </view>
