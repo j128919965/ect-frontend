@@ -4,6 +4,7 @@ const userBaseUrl =  base + '/user'
 export const userUrls = {
     login : userBaseUrl + '/login',
     role : userBaseUrl + '/role',
+    register : userBaseUrl + '/register'
 }
 
 export const refresh = userUrls + "/refresh"

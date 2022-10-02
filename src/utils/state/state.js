@@ -19,6 +19,12 @@ export default new Vuex.Store({
     getters:{
         isTuanOwnerOrTuanAdmin:(state)=>()=>{
             return state.roles.filter(it => it === 2 || it === 3).length > 0
+        },
+        isTuanOwner:(state)=>()=>{
+            return state.roles.filter(it => it === 2).length > 0
+        },
+        isTuanAdmin:(state)=>()=>{
+            return state.roles.filter(it => it === 3).length > 0
         }
     }
 })

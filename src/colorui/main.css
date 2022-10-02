@@ -904,6 +904,12 @@ button.cuIcon.lg {
 	font-size: 2em;
 }
 
+.cu-avatar.s120 {
+	width: 120upx;
+	height: 120upx;
+	font-size: 2.5em;
+}
+
 .cu-avatar.xl {
 	width: 128upx;
 	height: 128upx;
@@ -1944,6 +1950,15 @@ button.cuIcon.lg {
 	white-space: nowrap;
 }
 
+
+.nav.l {
+	padding-bottom: 12rpx;
+}
+
+.nav.xl {
+	padding-bottom: 20rpx;
+}
+
 ::-webkit-scrollbar {
 	display: none;
 }
@@ -1954,11 +1969,30 @@ button.cuIcon.lg {
 	line-height: 90upx;
 	margin: 0 10upx;
 	padding: 0 20upx;
+	color: #aaaaaa ;
+}
+
+.nav .cu-item.xl {
+	font-size: 17px;
+	font-weight: bold;
 }
 
 .nav .cu-item.cur {
 	border-bottom: 4upx solid;
+	color: #000000;
 }
+
+.nav .cu-item.cur.b5 {
+	border-bottom: 10upx solid;
+}
+
+.nav .cu-item.cur.orange {
+	border-color: orange;
+	color: #000000;
+}
+
+
+
 
 /* ==================
          时间轴
@@ -3909,4 +3943,14 @@ scroll-view.cu-steps .cu-item {
 .line-white,
 .lines-white {
 	color: #ffffff;
+}
+
+.text-warn {
+	color: red;
+	font-size: 13px;
+}
+
+.must-star {
+	color: red;
+	font-size: 20px;
 }
