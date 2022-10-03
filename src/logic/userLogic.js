@@ -35,7 +35,9 @@ const afterLogin = (loginResp) => {
 
 const refreshRole = async () => {
     let resp = await httpx.get(userUrls.role)
-    state.commit("setRoles", resp.d ?? [])
+    // state.commit("setRoles", resp.d ?? [])
+    // TODO 真实的权限
+    state.commit("setRoles", [2])
 }
 
 const refreshUserInfo = async () => {

@@ -70,7 +70,7 @@ export default {
       return state.getters.isTuanOwnerOrTuanAdmin()
     },
     isTuanOwner() {
-      return !state.getters.isTuanOwner()
+      return state.getters.isTuanOwner()
     },
     isTuanAdmin() {
       return state.getters.isTuanAdmin()
@@ -85,14 +85,12 @@ export default {
   data() {
     return {
       title: 'Hello',
-      tabCur: 0,
-      scrollLeft: 0,
+      tabCur: 0
     }
   },
   methods: {
     tabSelect(e) {
       this.tabCur = e.currentTarget.dataset.id;
-      this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
       this.loadData()
     },
     loadData() {
