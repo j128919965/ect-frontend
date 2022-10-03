@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         isLogin: false,
-        roles : []
+        roles : [],
+        info : {}
     },
     mutations: {
         login(state) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
         },
         setRoles(state,data) {
             state.roles = data
+        },
+        setInfo(state,info) {
+            state.info = info
         }
     },
     getters:{

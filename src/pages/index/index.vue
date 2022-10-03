@@ -1,22 +1,25 @@
 <template>
   <view class="content">
     <view v-if="isLogin" class="user-info-content">
-      <view class="user-avatar cu-avatar s120 round"
-            style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg);">
+      <view v-if="userInfo.avatar != null" class="user-avatar cu-avatar s120 round"
+            :style="avatarStyle">
       </view>
+      <button v-else class="user-avatar cu-avatar s120 round" open-type="getUserInfo" @getuserinfo="bindUserInfo">
+        <text class="cuIcon-people"></text>
+      </button>
       <view class="user-info-data-content">
         <view class="user-name">
-          忧桑
+          {{ userInfo.nickname }}
           <view v-if="isTuanOwnerOrTuanAdmin" class="user-role">
             <text v-if="isTuanOwner">团长</text>
             <text v-else-if="isTuanAdmin">管理员</text>
           </view>
         </view>
         <view class="user-qq">
-          949826078
+          {{ userInfo.qqNumber }}
         </view>
       </view>
-      <view class="create-tuan">
+      <view v-if="isTuanOwner" class="create-tuan">
         <view class="cuIcon-add"></view>
       </view>
     </view>
@@ -25,7 +28,7 @@
         <text class="cuIcon-people"></text>
       </view>
       <view class="user-info-data-content" @click="route('/pages/user/register')">
-        <view class="user-name" >
+        <view class="user-name">
           立即注册&nbsp;&nbsp;>
         </view>
       </view>
@@ -48,6 +51,8 @@
 
 <script>
 import state from "../../utils/state/state";
+import userLogic from "../../logic/userLogic";
+import store from "../../utils/store/store";
 
 export default {
   onLoad() {
@@ -62,13 +67,19 @@ export default {
       return state.state.isLogin
     },
     isTuanOwnerOrTuanAdmin() {
-      return !state.getters.isTuanOwnerOrTuanAdmin()
+      return state.getters.isTuanOwnerOrTuanAdmin()
     },
-    isTuanOwner(){
-      return true
+    isTuanOwner() {
+      return state.getters.isTuanOwner()
     },
-    isTuanAdmin(){
-      return true
+    isTuanAdmin() {
+      return state.getters.isTuanAdmin()
+    },
+    userInfo() {
+      return state.state.info
+    },
+    avatarStyle(){
+      return `background-image:url(${state.state.info.avatar});`
     }
   },
   data() {
@@ -86,6 +97,15 @@ export default {
     },
     loadData() {
       console.log(this.tabCur)
+    },
+    bindUserInfo(data){
+      console.log(data)
+      console.log(store.get("accessToken"))
+      let errMsg = data.detail.errMsg ?? ''
+      if (errMsg.indexOf('ok') < 0){
+        return
+      }
+      userLogic.setUserAvatar(data.detail.userInfo.avatarUrl)
     }
   }
 }
@@ -122,7 +142,7 @@ export default {
   height: 50rpx;
 }
 
-.user-role{
+.user-role {
   display: inline-block;
   background: #EE62C1;
   color: #ffffff;
@@ -134,7 +154,7 @@ export default {
   text-align: center;
 }
 
-.user-qq{
+.user-qq {
   background: #f2f2f2;
   font-weight: bold;
   border-radius: 6rpx;

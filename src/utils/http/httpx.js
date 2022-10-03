@@ -1,6 +1,6 @@
 import store from "../store/store";
 
-import {refresh as refreshUrl} from "./urls";
+import {userUrls} from "./urls";
 
 /**
  * 本系统后端使用的通用响应数据结构
@@ -121,7 +121,7 @@ const checkAndGetResp = async (action) => {
     if (!needRefresh(firstResp)) {
         return firstResp
     }
-    const refreshResp = await doPost(refreshUrl, {token: store.get("refreshToken")}, {});
+    const refreshResp = await doPost(userUrls.refresh, {token: store.get("refreshToken")}, {});
     if (!refreshResp.s) {
         return refreshResp
     }

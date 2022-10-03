@@ -1,10 +1,10 @@
 <script>
-import loginLogic from "./logic/loginLogic";
+import userLogic from "./logic/userLogic";
 
 export default {
 	onLaunch: function () {
 		console.log('App Launch')
-    // loginLogic.launchCheck()
+    userLogic.launchCheck()
 	},
 	onShow: function () {
 		console.log('App Show')
