@@ -3074,6 +3074,10 @@ scroll-view.cu-steps .cu-item {
 	margin-top: 50upx;
 }
 
+.margin-top-xxl {
+	margin-top: 60upx;
+}
+
 .margin-right-xs {
 	margin-right: 10upx;
 }
@@ -3948,9 +3952,30 @@ scroll-view.cu-steps .cu-item {
 .text-warn {
 	color: red;
 	font-size: 13px;
+	position: relative;
 }
 
 .must-star {
 	color: red;
 	font-size: 20px;
+}
+
+.pos-abs {
+	position: absolute;
+}
+
+.h60 {
+	height: 60rpx;
+}
+
+.m25lr {
+	margin: 0 25rpx;
+}
+
+.p25 {
+	padding: 25rpx;
+}
+
+.p25lzr {
+	padding: 0 25rpx;
 }

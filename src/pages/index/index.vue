@@ -19,7 +19,7 @@
           {{ userInfo.qqNumber }}
         </view>
       </view>
-      <view v-if="isTuanOwner" class="create-tuan">
+      <view v-if="isTuanOwner" class="create-tuan" @click="route('/pages/tuan/create')">
         <view class="cuIcon-add"></view>
       </view>
     </view>
@@ -70,7 +70,7 @@ export default {
       return state.getters.isTuanOwnerOrTuanAdmin()
     },
     isTuanOwner() {
-      return state.getters.isTuanOwner()
+      return !state.getters.isTuanOwner()
     },
     isTuanAdmin() {
       return state.getters.isTuanAdmin()

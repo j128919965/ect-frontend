@@ -3,7 +3,7 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "navigationBarTitleText": "首页"
       }
     },
     {
@@ -13,8 +13,20 @@
       }
     },
     {
+      "path": "pages/tuan/create",
+      "style": {
+        "navigationBarTitleText": "发起拼团"
+      }
+    },
+    {
       "path": "pages/admin/commodity",
       "style": {}
+    },
+    {
+      "path": "pages/tuan/edit/goods",
+      "style": {
+        "navigationBarTitleText": "编辑商品"
+      }
     }
   ],
   "globalStyle": {
