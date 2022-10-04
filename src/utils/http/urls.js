@@ -9,3 +9,8 @@ export const userUrls = {
     info : userBaseUrl + '/info',
     refresh : userBaseUrl + '/refresh',
 }
+
+const goodsBaseUrl = base + '/goods'
+export const goodsUrls = {
+    getAll : goodsBaseUrl
+}

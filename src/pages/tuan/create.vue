@@ -34,13 +34,13 @@
         </view>
         <view class="p-t-c-goods">
           <view v-for="goods in goodsList" :key="goods.id" class="p-t-c-card">
-            <view class="pic">
-              <img src="" alt="">
+            <view class="`pic`" @click="selectGoods(goods.id)">
+              <img :src="getGoodsById(goods.id).picCompress" alt="">
             </view>
-            <view class="infos">
+            <view class="infos" @click="selectGoods(goods.id)">
               <view class="item">
                 <view class="key">谷名</view>
-                <view class="value">{{ goods.id }}</view>
+                <view class="value">{{ getGoodsById(goods.id).name }}</view>
               </view>
               <view class="item">
                 <view class="key">均价</view>
@@ -59,11 +59,11 @@
                 <view class="value">{{ goods.rest }}</view>
               </view>
             </view>
-            <view class="remove cuIcon-close"><text class=""></text></view>
+            <view class="remove cuIcon-close" @click="removeGoods(goods.id)"></view>
           </view>
         </view>
-        <view class="p-t-c-add-goods">
-          <button>添加一个商品</button>
+        <view class="que-center-button">
+          <button @click="addGoods">添加一个商品</button>
         </view>
         <view class="p-t-c-tab m25lr">
           <view class="item"></view>
@@ -81,21 +81,16 @@
 </template>
 
 <script>
+import goodsLogic from "../../logic/goodsLogic";
+
 export default {
   name: "create",
   data: function () {
     return {
-      step: 1,
+      step: 2,
       name: '',
       desp: '',
       goodsList: [
-        {
-          id: 1,
-          avgPrice: 1000000,
-          adjPrice: 600,
-          total: 100,
-          rest: 67
-        },
         {
           id: 2,
           avgPrice: 10000,
@@ -150,11 +145,7 @@ export default {
     }
   },
   methods: {
-    createGoods() {
-      uni.navigateTo({
-        url: '/pages/tuan/edit/goods'
-      })
-    },
+    getGoodsById: goodsLogic.getGoodsById,
     cancel() {
       uni.navigateBack()
     },
@@ -177,6 +168,41 @@ export default {
       if (now === 2) {
 
       }
+    },
+    removeGoods(id) {
+      this.goodsList = this.goodsList.filter(it => it.id !== id)
+    },
+    selectGoods(id) {
+      const data = JSON.stringify(this.goodsList.filter(it => it.id === id)[0])
+      uni.navigateTo({
+        url: `/pages/tuan/edit/goods?mode=update&now=${data}`,
+        events: {
+          saveGoods: (g) => {
+            const goodsList = []
+            for (let goods of this.goodsList) {
+              if (goods.id !== g.id) {
+                goodsList.push(goods)
+              }else {
+                goodsList.push(g)
+              }
+            }
+            this.goodsList = goodsList
+          }
+        }
+      })
+    },
+    addGoods() {
+      const nowGoodsIds = this.goodsList.map(it => it.id).join(',')
+      uni.navigateTo({
+        url: `/pages/tuan/edit/goods?nowIds=${nowGoodsIds}&mode=add`,
+        events: {
+          saveGoods: (goods) => {
+            const goodsList = this.goodsList
+            goodsList.push(goods)
+            this.goodsList = goodsList
+          }
+        }
+      })
     }
   }
 }
@@ -228,26 +254,10 @@ export default {
 }
 
 .p-t-c-goods {
-  margin: 20rpx 0;
+  margin: 20rpx 0 0 0;
   padding: 20rpx 0;
-  height: calc(100vh - 380rpx);
-  /*border: 1px solid black;*/
+  height: calc(100vh - 360rpx);
   overflow-y: auto;
-}
-
-.p-t-c-add-goods {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  height: 60rpx;
-  margin: 40rpx 0;
-}
-
-.p-t-c-add-goods button {
-  width: 220rpx;
-  background: #EC808D;
-  color: white;
-  font-size: 27rpx;
 }
 
 .p-t-c-card {
@@ -275,22 +285,6 @@ export default {
   flex-wrap: wrap;
 }
 
-.p-t-c-card .remove {
-  position: absolute;
-  right: -10rpx;
-  top: -20rpx;
-  background: #EC808D;
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 20rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 26rpx;
-  font-weight: bold;
-}
-
 .p-t-c-card .infos .item {
   width: 33%;
   display: flex;
@@ -310,8 +304,6 @@ export default {
   width: calc(100% - 50rpx);
   text-align: center;
 }
-
-
 
 
 </style>

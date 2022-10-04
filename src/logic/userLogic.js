@@ -2,6 +2,7 @@ import httpx from "../utils/http/httpx";
 import {userUrls} from "../utils/http/urls";
 import store from "../utils/store/store";
 import state from "../utils/state/state";
+import goodsLogic from "./goodsLogic";
 
 const launchCheck = () => {
     const platform = uni.getSystemInfoSync().uniPlatform;
@@ -31,6 +32,7 @@ const afterLogin = (loginResp) => {
     state.commit("login")
     refreshRole()
     refreshUserInfo()
+    goodsLogic.loadGoods()
 }
 
 const refreshRole = async () => {
