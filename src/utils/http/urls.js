@@ -12,5 +12,6 @@ export const userUrls = {
 
 const goodsBaseUrl = base + '/goods'
 export const goodsUrls = {
-    getAll : goodsBaseUrl
+    getAll : goodsBaseUrl,
+    getAllTypes : goodsBaseUrl + '/type'
 }
