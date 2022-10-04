@@ -63,9 +63,10 @@
           </view>
         </view>
         <view class="que-center-button">
+          <view v-show="goodsWarn" class="text-warn pos-abs" style="top:-36rpx">{{ goodsWarn }}</view>
           <button @click="addGoods">添加一个商品</button>
         </view>
-        <view class="p-t-c-tab m25lr">
+        <view class="p-t-c-tab">
           <view class="item"></view>
           <button class="item gray" @click="gotoStep(1)">
             <text class="cuIcon-back"></text>
@@ -73,6 +74,22 @@
           </button>
           <button class="item pink" @click="gotoStep(3)">下一步
             <text class="cuIcon-right"></text>
+          </button>
+        </view>
+      </view>
+    </view>
+    <view v-show="step === 3">
+      <view class="p-t-c-container">
+        <view class="text-xxl margin-top-xxl h60">
+          3. 编辑排谷时间信息
+        </view>
+        <view class="p-t-c-tab">
+          <view class="item"></view>
+          <button class="item gray" @click="gotoStep(2)">
+            <text class="cuIcon-back"></text>
+            上一步
+          </button>
+          <button class="item pink">提交
           </button>
         </view>
       </view>
@@ -141,7 +158,8 @@ export default {
           rest: 67
         }
       ],
-      nameWarn: null
+      nameWarn: null,
+      goodsWarn: null
     }
   },
   methods: {
@@ -151,7 +169,7 @@ export default {
     },
     gotoStep(step) {
       const now = this.step
-      if (step < 2) {
+      if (step < now) {
         this.step = step
         return;
       }
@@ -166,7 +184,11 @@ export default {
         return;
       }
       if (now === 2) {
-
+        if (this.goodsList?.length < 1) {
+          this.goodsWarn = '至少需要选择一件谷子'
+          return;
+        }
+        this.step = step
       }
     },
     removeGoods(id) {
@@ -182,7 +204,7 @@ export default {
             for (let goods of this.goodsList) {
               if (goods.id !== g.id) {
                 goodsList.push(goods)
-              }else {
+              } else {
                 goodsList.push(g)
               }
             }

@@ -28,7 +28,7 @@
             商品
           </view>
           <view v-if="id == null" class="avatar empty" @click="chooseGoods">
-            <text class="cuIcon-add" ></text>
+            <text class="cuIcon-add"></text>
           </view>
           <view class="avatar" v-else>
             <img :src="getGoodsById(id).picCompress" alt="">
@@ -48,6 +48,7 @@
 
 <script>
 import goodsLogic from "../../../logic/goodsLogic";
+import tuanLogic from "../../../logic/tuanLogic";
 
 export default {
   name: "goods",
@@ -80,37 +81,10 @@ export default {
   methods: {
     getGoodsById: goodsLogic.getGoodsById,
     save() {
-      if (this.id == null) {
-        this.warning = '请选择商品'
+      const msg = tuanLogic.validateTuanGoods(this.id, this.avgPrice, this.adjPrice, this.total, this.rest)
+      if (msg != null) {
+        this.warning = msg
         return
-      }
-      if (this.avgPrice == null) {
-        this.warning = '请输入均价'
-        return;
-      }
-      if (this.avgPrice < 0) {
-        this.warning = '均价必须为正数'
-        return;
-      }
-      if (this.adjPrice == null) {
-        this.warning = '请输入调价'
-        return;
-      }
-      if (this.total == null) {
-        this.warning = '请输入总量'
-        return;
-      }
-      if (this.total < 0) {
-        this.warning = '总量必须为正数'
-        return;
-      }
-      if (this.rest == null) {
-        this.warning = '请输入余量'
-        return;
-      }
-      if (this.rest > this.total) {
-        this.warning = '余量不能超过总量'
-        return;
       }
       const newGoods = {
         id: this.id,
@@ -119,10 +93,10 @@ export default {
         total: this.total,
         rest: this.rest
       }
-      this.getOpenerEventChannel().emit('saveGoods',newGoods)
+      this.getOpenerEventChannel().emit('saveGoods', newGoods)
       uni.navigateBack()
     },
-    chooseGoods(){
+    chooseGoods() {
       // TODO 实际选择商品
       for (let i = 1; i < 1000; i++) {
         if (this.nowIds.indexOf(i) < 0) {
@@ -131,7 +105,7 @@ export default {
         }
       }
     },
-    removeGoods(){
+    removeGoods() {
       this.id = null
     }
   }
